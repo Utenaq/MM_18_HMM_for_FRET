@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{HMM}
+Sean~A. McKinney, Chirlmin Joo, and Taekjip Ha, Analysis of Single-Molecule
+  FRET Trajectories Using Hidden Markov Modeling, {\em Biophysical Journal},
+  {\bf 2004}, {\em 91}, 1941--1951.
+
+\bibitem{Brent}
+Press~W. H., S.~A. Teukolsky, W.~T. Vetterling, and B.~P. Flannery, {\em
+  Numerical recipes in C.;}
+\newblock Cambridge University Press, Cambridge, 1990.
+
+\bibitem{H2MM}
+Menahem Pirchi, Roman Tsukanov, Rashid Khamis, Toma~E. Tomov, Yaron Berger,
+  Dinesh~C. Khara, Hadas Volkov, Gilad Haran, and Eyal Nir, Photon-by-Photon
+  Hidden Markov Model Analysis for Microsecond Single-Molecule FRET Kinetics,
+  {\em J. Phy. Chem. B}, {\bf 2016}, {\em 120}, 13065--13075.
+
+\bibitem{VBEM}
+Jonathan~E. Bronson, Jingyi Fei, Jake~M. Hofman, Ruben L.~Gonzalez Jr., and
+  Chris~H. Wiggins, Learning Rates and States from Biophysical Time Series: A
+  Bayesian Approach to Model Selection and Single-Molecule FRET Data, {\em
+  Biophysical Journal}, {\bf 2009}, {\em 97}, 3196--3205.
+
+\bibitem{wiki:mle}
+{Wikipedia contributors;}
+\newblock Maximum likelihood estimation --- {Wikipedia}{,} the free
+  encyclopedia, {\bf 2018;}
+\newblock [Online; accessed 3-June-2018].
+
+\end{thebibliography}
