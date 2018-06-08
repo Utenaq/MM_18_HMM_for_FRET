@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.5.9)  8 JUN 2018 18:30
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.5.9)  8 JUN 2018 20:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1254,11 +1254,11 @@ File: fig_vbms.jpg Graphic file (type bmp)
 <fig_vbms.jpg>
  [7] [8] (./fluoro.bbl) [9] (./fluoro.aux) ) 
 Here is how much of TeX's memory you used:
- 21003 strings out of 492970
- 430536 string characters out of 6132259
- 487062 words of memory out of 5000000
- 24867 multiletter control sequences out of 15000+600000
- 541462 words of font info for 92 fonts, out of 8000000 for 9000
+ 21007 strings out of 492970
+ 430632 string characters out of 6132259
+ 487071 words of memory out of 5000000
+ 24870 multiletter control sequences out of 15000+600000
+ 541470 words of font info for 93 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  47i,11n,76p,10439b,434s stack positions out of 5000i,500n,10000p,200000b,80000s
 

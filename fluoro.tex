@@ -28,7 +28,7 @@
 
 
 
-\title{Title}
+\title{基于HMM方法的单分子荧光轨迹分析}
 \author{滕达\footnote{北京大学化学与分子工程学院、定量生物学中心，通讯地址：\texttt{tengda@pku.edu.cn}，$\mathrm{id}=1500011735$}，乔卓然\footnote{北京大学化学与分子工程学院、生物动态光学成像中心，通讯地址：\texttt{utenaq@pku.edu.cn}，$\mathrm{id}=1500011826$}}
 \date{\today}
 
@@ -102,8 +102,9 @@ p(y,y')=\sum_{z=1}^S \sum_{z'=1}^S A_{z, z'} \exp\left[-\frac{(y- y_{z})^2+(y'- 
 \begin{equation}
 BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
 \end{equation}
+此时对S的优化转化为求BIC 极大值。
 
-此时对S的优化转化为求BIC 极大值。Mckinney等还通过模拟数据和核酸分子折叠的单分子FRET实验数据对模型进行了测试(Figure \ref{fig:test})，在不同状态之间荧光效率均值相差0.1 以上，观测函数峰宽小于0.4 时表现较好。
+Mckinney等还通过模拟数据和核酸分子折叠的单分子FRET实验数据对模型进行了测试(Figure \ref{fig:test})，在不同状态之间荧光效率均值相差0.1 以上，观测函数峰宽小于0.4 时表现较好。
 
 \begin{figure}[htb]
   \centering
@@ -183,8 +184,10 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
       \ln p(y|S)= -F[q(z,\lambda)] +D_{KL}[q(z,\lambda)||p(z,\lambda| y, S)].
     \end{equation}
     有趣的是，如果对$F$进行适当的变形，我们发现$F$ 可以写成类似统计物理中自由能的形式
-    $$F[q(z,\lambda)] = -\sum_z\int \mathrm d\lambda\, q(z,\lambda)\ln p(y,\lambda,z|S) + \sum_z\int \mathrm d\lambda q(z,\lambda)\ln q(z,\lambda).$$
-    如果把$q(z,\lambda)$ 看成某个微观态出现的概率，在合适的单位下，第一项就是平均场能量$\langle E\rangle$（Potential of Mean Force, PMF），第二项则是统计熵$S$. 因此，我们甚至可以把(\ref{eqn:F_def}) 改写为$F=\langle E\rangle -TS$ 的形式。
+    \begin{equation}\label{eqn:supp_25}
+	F[q(z,\lambda)] = -\sum_z\int \mathrm d\lambda\, q(z,\lambda)\ln p(y,\lambda,z|S) + \sum_z\int \mathrm d\lambda q(z,\lambda)\ln q(z,\lambda).
+	\end{equation}    
+如果把$q(z,\lambda)$ 看成某个微观态出现的概率，在合适的单位下，第一项就是平均场能量$\langle E\rangle$（Potential of Mean Force, PMF），第二项则是统计熵$S$. 因此，我们甚至可以把(\ref{eqn:F_def}) 改写为$F=\langle E\rangle -TS$ 的形式。
 
     同时(\ref{eqn:supp_24}) 式中的K-L Divergence 在最佳的$q^*(z,\lambda)$ 时为取极小，这里我们直接将它放缩到0. 因此对$\ln p(z,\lambda)$ 的优化变成了单纯的对(\ref{eqn:F_def}) 式所给出的泛函$F$的优化。这一优化有多种不同方法；例如，由于$F$ 的凸性，这一过程可以通过一个迅速收敛的迭代完成。
 
