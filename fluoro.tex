@@ -56,7 +56,7 @@ p(y|z) \propto \exp\left[-2\times\left(\frac{y- y_z}{\sigma}\right)^2\right]
 \end{equation}
 其中$y=\{y_1, y_2,\cdots, y_N\}$为观测到的FRET效率序列，$y_{z}$ 为理想情形下微观状态$z$ 对应的FRET 效率大小。
 
-对于该HMM模型，需要确定三部分未知参数：分子的总微观状态数$S$，微观状态之间的状态转移矩阵$a_{z_i, z_{i+1}}$以及各个状态的发射概率分布的均值$y_{z}$及峰宽$\sigma$。 如果给定总微观状态数$S$，模型参数的估计可以采用ML法处理，通过遍历由$a_{z_{i}, z_{i+1}}$, $y_{z} $和$\sigma$组成的状态空间优化荧光轨迹的总观测概率$p(y| \lambda)$得到。FRET 的总观测概率$p(y|z,\lambda)$ 由下式给出。我们可以根据这个概率对$z$和$\lambda$分别做优化。
+对于该HMM模型，需要确定三部分未知参数：分子的总微观状态数$S$，微观状态之间的状态转移矩阵$a_{z_i, z_{i+1}}$以及各个状态的发射概率分布的均值$y_{z}$及峰宽$\sigma$。 如果给定总微观状态数$S$，模型参数的估计可以采用ML法处理，通过遍历由$a_{z_{i}, z_{i+1}}$, $y_{z} $和$\sigma$组成的状态空间优化荧光轨迹的总观测概率$p(y| \lambda)$得到。FRET 的总观测概率$p(y|z,\lambda)$ 由下式给出。我们可以根据这个概率对$z$和$\lambda$ 分别做优化。
 \begin{equation}
 p(y|z,\lambda)= \prod_i^N p(y|z) a_{z_{i}, z_{i+1}}
 \end{equation}
@@ -119,9 +119,9 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
 
     为了获取更高的时间分辨率来解析更精细的蛋白质动力学，Menahem Pirchi等人建立了单光子观测的实验手段\cite{H2MM}。 由于在实际的蛋白质荧光光谱中，两次接收到光子的时间不可能无限的短。因而，当我们把时间步长$\delta t$ 取得足够小的时候，在一个$\delta t$ 内系统收到两个光子的概率事实上可以忽略不计。因此，在实际使用的$\delta t = 1\,$ns 的时间步长下，这个问题已经可以看成离散时间的马尔可夫模型。
 
-    但这个问题和序言中所提到的简单隐马尔可夫模型有显著区别。在传统的荧光观测中，观测的步长足够长，因此每个步长内都可以测量出一个荧光强度（或荧光效率）。而为了获得更短时间尺度下更细节的动力学信息，需要从系统发射的单个光子中解析信息。此时，HMM使用的时间步长$\delta t$ 很短，在两次发射光子时间之内可能系统已经发生了若干次状态转换。因此，光子到达的时间序列并不能完整地包含关于体系状态改变的信息。由于额外的这层信息丢失，我们必须在系统的状态转移和光子测量的时间序列之外再增加一个参量来将他们联系起来。因此，这个模型被称之为H$^2$MM.
+    但这个问题和序言中所提到的简单隐马尔可夫模型有显著区别。在传统的荧光观测中，观测的步长足够长，因此每个步长内都可以测量出一个荧光强度（或荧光效率）。而为了获得更短时间尺度下更细节的动力学信息，需要从系统发射的单个光子中解析信息。此时，HMM 使用的时间步长$\delta t$ 很短，在两次发射光子时间之内可能系统已经发生了若干次状态转换。因此，光子到达的时间序列并不能完整地包含关于体系状态改变的信息。由于额外的这层信息丢失，我们必须在系统的状态转移和光子测量的时间序列之外再增加一个参量来将他们联系起来。因此，这个模型被称之为H$^2$MM.
 
-    我们假设两次收到光子之间的时间差$\Delta t_n = t_{n+1}-t_n$, 如果以$\delta t=1\,$ns作为单位，$\Delta t_n$总可以是一个整数。不同于普通的HMM, 在H$^2$MM 中，状态转移矩阵会相应的变成$a_{x_ix_j}^{\Delta t_n}$. 如果将$\Delta t_n$固定为1，就可以化为常规的HMM.
+    我们假设两次收到光子之间的时间差$\Delta t_n = t_{n+1}-t_n$, 如果以$\delta t=1\,$ns作为单位，$\Delta t_n$总可以是一个整数。不同于普通的HMM, 在H$^2$MM 中，状态转移矩阵会相应的变成$a_{x_ix_j}^{\Delta t_n}$. 如果将$\Delta t_n$ 固定为1，就可以化为常规的HMM.
 
     好在，对于已知的实验数据，$\Delta t_n$都是已知的。因此，H$^2$MM仍然可以通过常规的前传算法和后传算法来计算我们感兴趣的$p(x,y|\theta)$. 唯一的区别在于，每次传递的状态转移矩阵$A=a_{ij}$ 需要修改为$A=a^{\Delta t_{ij}}_{x_i, x_j}$.
 
@@ -137,7 +137,7 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
     在实际的荧光轨迹分析中，系统的总状态数在很多情况下是不确定的。因此，马尔可夫模型中的系统的状态数也是不确定的。当选取的模型的复杂度过大，亦即系统的状态数取得过多的时候，就容易出现过拟合。过拟合情况下可以得到极高的后验概率，但却不能从中推断出任何信息。因此，Jonanthan E. Bronson 等人将变分贝叶斯最大期望 (Variational Bayes Expectation Maximization, VBEM) 法应用于隐马尔可夫模型\cite{VBEM}，通过给过多的模型参数（即过复杂的模型）以额外惩罚的方式来达到过拟合和拟合不佳之间的平衡。
 
     \subsection{ML 法与ME 法的比较}
-    最大似然估计（Maximum Likelihood, ML）法\cite{wiki:mle} 通过优化一个相似度目标函数$\mathcal L(\theta)$ 来确定模型中的参数$\theta$；而文献\cite{VBEM} 中提出的最可能推断（Maximum Evidence Inference, ME）则可以在不同模型中选择最好的一个。在第\ref{chapter:HMM} 章中提到的ML方法中，在已知测量值$y$的情况下，可以通过优化$p(y|\theta)$ 来得到最佳的模型参数，即
+    最大似然估计（Maximum Likelihood, ML）法\cite{wiki:mle} 通过优化一个相似度目标函数$\mathcal L(\theta)$ 来确定模型中的参数$\theta$；而文献\cite{VBEM} 中提出的最可能推断（Maximum Evidence Inference, ME）则可以在不同模型中选择最好的一个。在第\ref{chapter:HMM} 章中提到的ML 方法中，在已知测量值$y$的情况下，可以通过优化$p(y|\theta)$ 来得到最佳的模型参数，即
     \begin{equation}\label{eqn:ML_estimate}
       \theta^* = \argmax_\theta p(y| \theta).
     \end{equation}
@@ -147,7 +147,7 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
     \begin{equation}\label{eqn:ME_model}
       S^* = \argmax_S p(y| S) = \argmax_K \int p(y| \theta, S)p(\theta| S)\,\mathrm d\theta
     \end{equation}
-    其中，$p(y| S)$中$\theta$ 被积分从而像哑指标一样被消掉（Marginalize），因此也被称之为边际相似性（Marginal Likelihood）. 方程中的$p(\theta | S)$ 是各个参数$\theta$ 的先验概率。当模型复杂度$S$上升时，$p(\theta | S)$ 会显著下降来拉低$p(y| S)$. 使得过复杂的模型不易出现。Bayes公式将我们感兴趣的$p(\theta|y,S)$ 和边际相似性$p(y|S)$ 和先验概率$p(\theta|S)$联系起来。
+    其中，$p(y| S)$中$\theta$ 被积分从而像哑指标一样被消掉（Marginalize），因此也被称之为边际相似性（Marginal Likelihood）. 方程中的$p(\theta | S)$ 是各个参数$\theta$ 的先验概率。当模型复杂度$S$ 上升时，$p(\theta | S)$ 会显著下降来拉低$p(y| S)$. 使得过复杂的模型不易出现。Bayes公式将我们感兴趣的$p(\theta|y,S)$ 和边际相似性$p(y|S)$ 和先验概率$p(\theta|S)$ 联系起来。
     \begin{equation}\label{eqn:bayes_vbem}
       p(\theta| y, S) = \frac{p(y| \theta, S)p(\theta| S)}{p(y| S)}.
     \end{equation}
@@ -158,7 +158,7 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
     \subsection{处理$p(y|S)$的方法}
     上一节的讨论中没有考虑进隐马尔可夫模型中的隐变量$z$，但隐变量不改变整个方法的数学结构，我们可以直接将它加入我们的模型。
 
-    为了简化计算，对于一个后验概率$p(z,\theta|y, S)$，我们可以用类似平均场的方法来构造一个$q(z,\theta)$来近似$p(z,\theta|y, S)$. 由$q(z,\theta)$ 的归一性，我们可以写出
+    为了简化计算，对于一个后验概率$p(z,\theta|y, S)$，我们可以用类似平均场的方法来构造一个$q(z,\theta)$ 来近似$p(z,\theta|y, S)$. 由$q(z,\theta)$ 的归一性，我们可以写出
     $$\ln p(y|S) = \left[\sum_z\int \mathrm d\theta\, q(z,\theta)\right]\ln p(y|S)$$
     再利用条件概率之间的关系$p(y,\theta,z|S) = p(z,\theta|y, S)p(y|S)$，有
     $$\ln p(y|S) = \left[\sum_z\int \mathrm d\theta\, q(z,\theta)\right]\ln \frac{p(y,z,\theta|S)}{p(z,\theta|y,S)}$$
@@ -173,7 +173,7 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
                     &=& \argmin_{q(z,\theta)}\sum_{\{y,S\}} p(z,\theta|y,S)\ln\frac{p(z,\theta|y,S)}{q(z,\theta)}\\
                     &\ge& 0
     \end{eqnarray*}
-    等号取到当且仅当$q(z,\theta) = p(z,\theta|y, S)$. 而(\ref{eqn:supp_21})式等号右边的第二项就是Kullback-Leibler距离，而第一项则可以看成是一个$q(z,\theta)$ 的泛函，定义
+    等号取到当且仅当$q(z,\theta) = p(z,\theta|y, S)$. 而(\ref{eqn:supp_21}) 式等号右边的第二项就是Kullback-Leibler 距离，而第一项则可以看成是一个$q(z,\theta)$ 的泛函，定义
     \begin{equation}\label{eqn:F_def}
       F[q(z,\theta)] = -\sum_z\int \mathrm d\theta\, q(z,\theta)\ln\frac{p(y,\theta,z|S)}{q(z,\theta)}.
     \end{equation}
@@ -185,7 +185,7 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
     $$F[q(z,\theta)] = -\sum_z\int \mathrm d\theta\, q(z,\theta)\ln p(y,\theta,z|K) + \sum_z\int \mathrm d\theta q(z,\theta)\ln q(z,\theta).$$
     如果把$q(z,\theta)$ 看成某个微观态出现的概率，在合适的单位下，第一项就是平均场能量$\langle E\rangle$（Potential of Mean Force, PMF），第二项则是统计熵$S$. 因此，我们甚至可以把(\ref{eqn:F_def}) 改写为$F=\langle E\rangle -TS$ 的形式。
 
-    同时(\ref{eqn:supp_24}) 式中的K-L Divergence 在最佳的$q^*(z,\theta)$时为取极小，这里我们直接将它放缩到0. 因此对$\ln p(z,\theta)$ 的优化变成了单纯的对(\ref{eqn:F_def})式所给出的泛函$F$的优化。这一优化有多种不同方法；例如，由于$F$ 的凸性，这一过程可以通过一个迅速收敛的迭代完成。
+    同时(\ref{eqn:supp_24}) 式中的K-L Divergence 在最佳的$q^*(z,\theta)$ 时为取极小，这里我们直接将它放缩到0. 因此对$\ln p(z,\theta)$ 的优化变成了单纯的对(\ref{eqn:F_def}) 式所给出的泛函$F$的优化。这一优化有多种不同方法；例如，由于$F$ 的凸性，这一过程可以通过一个迅速收敛的迭代完成。
 
     \subsection{实验结果}
     \begin{figure}[htb]
@@ -195,7 +195,7 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
       \label{fig:vbem}
     \end{figure}
 
-    计算模拟发现，使用VBEM改进后的隐马尔可夫模型可以识别过拟合。对于一段人工随机生成的，包含三个状态的荧光轨迹（Figure \ref{fig:vbem}a），作者比较了两种处理方法下得到的不同结果。对于欠拟合和恰好拟合情况$K=1, 3$，两种方法给出了十分类似的结果。但在$K=5$的过拟合情况下，ML 法给出了比$K=3$ 的情况下更高的概率，倾向于过拟合结果。而ME法下，$K=5$ 时的概率比$K=3$时更差，体系识别出了冗余的模型状态数。从$K=5$ 时得到的优化结果来看，被ML法认为是不同状态的两个小平台被ME 法归在了正确的类中，给出了更准确的结果。
+    计算模拟发现，使用VBEM 改进后的隐马尔可夫模型可以识别过拟合。对于一段人工随机生成的，包含三个状态的荧光轨迹（Figure \ref{fig:vbem}a），作者比较了两种处理方法下得到的不同结果。对于欠拟合和恰好拟合情况$K=1, 3$，两种方法给出了十分类似的结果。但在$K=5$的过拟合情况下，ML 法给出了比$K=3$ 的情况下更高的概率，倾向于过拟合结果。而ME法下，$K=5$ 时的概率比$K=3$时更差，体系识别出了冗余的模型状态数。从$K=5$ 时得到的优化结果来看，被ML法认为是不同状态的两个小平台被ME 法归在了正确的类中，给出了更准确的结果。
 
     更准确的计算比较了不同的$K$值对这段轨迹的优化结果的影响（Figure \ref{fig:vbem}b）. 当体系的状态数增大的时候，ML法给出的概率是单调增长的，而ME 法给出的结果则有一个明显的最大值。据此我们可以判断系统最可能有3个状态数，这和我们的生成这段轨迹时的参数相同。
 
@@ -209,10 +209,9 @@ BIC(S)=-2ln[p(y,z|\lambda)]+(S^2+1)ln[p(z|\lambda)]
 
 VBEM算法解决了这两个问题：基于EM 算法严格化了对$p(y,\theta|K)$的处理，避免了用预测状态链近似实际状态链引入的误差。而对于状态数估计，ME方法将模型复杂度的出现权重考虑在内，使得过于复杂的模型不易出现，对$S$预测的准确度较之ML方法有明显提升。
 
-\section{Bottom Lines}\label{chapter:BottomLines}
 
 \section{Acknowledgement}
-    滕达完成了文章的第\ref{chapter:H2MM}, \ref{chapter:VBEM} 两个章节，乔卓然完成了文章的导语和第\ref{chapter:HMM}, \ref{chapter:Discussion} 章。第\ref{chapter:BottomLines} 章由两人共同完成。滕达修订并统稿了整篇文章。其中，乔卓然选定了本综述讨论的文献；他在赵新生教授实验室的工作和荧光轨迹的分析有关。
+    滕达完成了文章的第\ref{chapter:H2MM}, \ref{chapter:VBEM} 两个章节，乔卓然完成了文章的导语和第\ref{chapter:HMM}, \ref{chapter:Discussion} 章。两人共同修订并统稿了整篇文章。其中，乔卓然选定了本综述讨论的文献；他在赵新生教授实验室的工作和荧光轨迹的分析有关。
 
 
 \small
